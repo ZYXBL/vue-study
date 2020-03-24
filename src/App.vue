@@ -6,11 +6,21 @@
     </div>
     <router-view/>
     <p @click="$store.commit('add')">{{ $store.state.count }}</p>
+    <p @click="$store.commit('error')">error {{ $store.state.count }}</p>
     <p @click="$store.dispatch('asyncAdd')">async {{ $store.state.count }}</p>
+    <p @click="$store.dispatch('async error')">async error {{ $store.state.count }}</p>
 
-    <p>{{ $store.getters.doubleCount }}</p>
+    <!-- <p>{{ $store.getters.doubleCount }}</p> -->
   </div>
 </template>
+
+<script>
+export default {
+  mounted () {
+    this.$store.state.count++
+  }
+}
+</script>
 
 <style>
 #app {
