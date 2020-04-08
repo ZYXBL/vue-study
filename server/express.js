@@ -50,6 +50,7 @@ app.get('*', async function(req, res) {
   });
   try {
     // 跳转至url对应路由页面
+    // 首屏渲染
     router.push(req.url);
     const html = await renderer.renderToString(vm);
     // 将渲染html字符串返回给客户端
