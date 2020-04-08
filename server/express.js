@@ -3,8 +3,34 @@
 const express = require('express');
 const app = express();
 
-app.get('/', function(req, res) {
-  res.send('hello world')
-})
+// 导入vue
+const Vue = require('vue');
 
-app.listen(3000)
+// 渲染器导入
+const { createRenderer } = require('vue-server-renderer');
+
+// 创建一个渲染器
+const renderer = createRenderer();
+
+app.get('/', async function(req, res) {
+  // res.send('hello world')
+
+  // 创建一个Vue实例
+  const vm = new Vue({
+    data: {
+      name: 'vue ssr渲染',
+    },
+    template: '<div>{{name}}</div>'
+  });
+  try {
+    const html = await renderer.renderToString(vm);
+    // 将渲染html字符串返回给客户端
+    res.send(html);
+  } catch (error) {
+    // 将错误信息返回给用户
+    res.status(500).send('服务器渲染错误，请重试！');
+  }
+});
+
+app.listen(4000);
+
