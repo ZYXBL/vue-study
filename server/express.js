@@ -16,15 +16,15 @@ const { createRenderer } = require('vue-server-renderer');
 // 创建一个渲染器
 const renderer = createRenderer();
 
-app.get('*', async function(req, res) {
+app.get('*', async function (req, res) {
   // res.send('hello world')
-  
+
   // 创建一个router实例
   const router = new Router({
     mode: 'history',
     routes: [
-      {path: '/', component: { template: '<div>index page</div>' }},
-      {path: '/detail', component: { template: '<div>detail page</div>' }}
+      { path: '/', component: { template: '<div>index page</div>' } },
+      { path: '/detail', component: { template: '<div>detail page</div>' } }
     ]
   });
 
@@ -52,7 +52,8 @@ app.get('*', async function(req, res) {
     // 跳转至url对应路由页面
     // 首屏渲染
     router.push(req.url);
-    const html = await renderer.renderToString(vm);
+    // const html = await renderer.renderToString(vm);
+    const html = await bundleRenderer.renderToString({ url: req.url });
     // 将渲染html字符串返回给客户端
     res.send(html);
   } catch (error) {

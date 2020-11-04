@@ -25,3 +25,11 @@ const router = new VueRouter({
 })
 
 export default router
+
+
+// 导出工厂函数
+export function createRouter () {
+  return new VueRouter({
+    routes
+  })
+}
